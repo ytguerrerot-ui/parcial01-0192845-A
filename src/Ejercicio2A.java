@@ -7,7 +7,7 @@ public class Ejercicio2A {
         final int DIAS = 5;
         int[][] produccion = new int[MAQUINAS][DIAS];
 
-        // --- Lectura y validación de la matriz ---
+        
         for (int fila = 0; fila < MAQUINAS; fila++) {
             for (int col = 0; col < DIAS; col++) {
                 int valor;
@@ -26,7 +26,7 @@ public class Ejercicio2A {
             }
         }
 
-        // --- Total producido por cada máquina ---
+        
         int[] totalPorMaquina = new int[MAQUINAS];
         for (int fila = 0; fila < MAQUINAS; fila++) {
             int suma = 0;
@@ -36,7 +36,7 @@ public class Ejercicio2A {
             totalPorMaquina[fila] = suma;
         }
 
-        // --- Total producido por cada día ---
+        
         int[] totalPorDia = new int[DIAS];
         for (int col = 0; col < DIAS; col++) {
             int suma = 0;
@@ -46,7 +46,7 @@ public class Ejercicio2A {
             totalPorDia[col] = suma;
         }
 
-        // --- Máquina con mayor producción acumulada (primera en caso de empate) ---
+      
         int indiceMaquinaMayor = 0;
         for (int fila = 1; fila < MAQUINAS; fila++) {
             if (totalPorMaquina[fila] > totalPorMaquina[indiceMaquinaMayor]) {
@@ -54,7 +54,7 @@ public class Ejercicio2A {
             }
         }
 
-        // --- Día con menor producción total (primero en caso de empate) ---
+        
         int indiceDiaMenor = 0;
         for (int col = 1; col < DIAS; col++) {
             if (totalPorDia[col] < totalPorDia[indiceDiaMenor]) {
@@ -62,7 +62,7 @@ public class Ejercicio2A {
             }
         }
 
-        // --- Conteo de registros inferiores a 20 piezas ---
+       
         int contadorMenores20 = 0;
         for (int fila = 0; fila < MAQUINAS; fila++) {
             for (int col = 0; col < DIAS; col++) {
@@ -72,7 +72,7 @@ public class Ejercicio2A {
             }
         }
 
-        // --- Salida de resultados ---
+       
         System.out.println("\n===== TOTAL POR MAQUINA =====");
         for (int fila = 0; fila < MAQUINAS; fila++) {
             System.out.println("Maquina " + (fila + 1) + ": " + totalPorMaquina[fila] + " piezas");
