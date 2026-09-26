@@ -115,43 +115,48 @@ Este repositorio contiene la solución de los dos ejercicios prácticos del prim
 
 Cada ejercicio está resuelto en un archivo `.java` independiente y toda la lógica vive dentro del método `main`.
 
----
+
+
+
+ ### ===================== requisitos pedidos e el README .md================================
 
 ## Ejercicio 1 – Consumo de agua por sectores
 **Archivo:** `Ejercicio1A.java`
 
+Este repo tiene los dos ejercicios del primer parcial de Programación I, hechos en Java desde consola. Como pedía el enunciado, todo está resuelto directamente en el `main`, sin `ArrayList`, sin colecciones ni métodos de ordenamiento automático, y cada ejercicio va en su propio archivo `.java`.
+
+
 ### ¿Qué hace el programa?
-Simula el registro del consumo diario de agua de 10 sectores de una ciudad, usando un arreglo unidimensional de enteros.
+calcula y registra el consumo diario de agua de 10 sectores de una ciudad, usando un arreglo unidimensional de enteros
 
 ### Entradas
 - 10 valores enteros (uno por sector), correspondientes al consumo en metros cúbicos.
-- Cada valor se valida al momento de ingresarlo: si el usuario escribe un número negativo, el programa lo rechaza y vuelve a pedirlo hasta que sea válido.
+- Cada valor se valida al momento de ingresarlo: si el usuario escribe un número negativo, el programa lo rechaza y vuelve a pedirlo hasta que se confirme que sea valido.
 
 ### Proceso
-- Se recorre el arreglo para sumar el consumo total y calcular el promedio.
+- Se recorre el arreglo para sumar el consumo total y calcular el promedio de todos los valores requeridos en el suistema.
 - Se busca el sector con el mayor consumo, guardando la primera posición encontrada en caso de empate.
 - Se recorre nuevamente el arreglo (ya con el promedio calculado) para contar cuántos sectores superan ese promedio.
 - Se calcula la racha más larga de sectores consecutivos que están por encima del promedio, usando un contador que se reinicia cada vez que se rompe la secuencia.
 
 ### Salidas
 - Consumo total de los 10 sectores.
-- Promedio de consumo (con dos decimales).
+- Promedio de consumo.
 - Sector con mayor consumo.
 - Cantidad de sectores por encima del promedio.
 - Longitud de la racha más larga de sectores consecutivos sobre el promedio.
 - Listado final con el número de cada sector y su consumo.
 
 ### ¿Qué se aprendió con este ejercicio?
-Este ejercicio deja varias ideas clave muy propias de los arreglos unidimensionales:
+Lo primero que noté es lo fácil que es confundirse entre la posición del arreglo y el número del sector. El arreglo arranca en 0 pero el sector 1 es el que el usuario entiende, así que hay que acordarse de sumarle 1 cada vez que se muestra algo en pantalla. Es un detalle chiquito pero es justo el tipo de error que uno comete sin darse cuenta al principio.
 
-- **La diferencia entre índice y "nombre" del dato.** El arreglo empieza en la posición 0, pero el sector se numera desde el 1. Ese pequeño desfase (`indice + 1`) es un error común al iniciar en programación, y resolverlo obliga a pensar con más cuidado en qué representa cada variable.
-- **Que a veces hay que recorrer el mismo arreglo más de una vez.** No se puede saber cuántos sectores superan el promedio *mientras* se calcula el promedio, porque el promedio aún no existe. Esto enseña que un mismo conjunto de datos puede necesitar varias pasadas según lo que se quiera calcular.
-- **La lógica de una racha (secuencia consecutiva).** Es un patrón distinto a simplemente contar o sumar: se necesita una variable que "recuerde" cuántos elementos van seguidos cumpliendo la condición y otra que guarde el máximo alcanzado hasta el momento. Es la base de problemas más complejos de secuencias.
-- **Validación de entradas con ciclos `do-while`.** Pedir un dato "hasta que sea válido" es un patrón que se repite constantemente en programas reales, y aquí se practica de forma directa.
+Otra cosa que entendí mejor fue por qué a veces hay que recorrer el mismo arreglo dos veces. No hay forma de saber cuántos sectores superan el promedio mientras se está calculando el promedio, porque ese dato todavía no existe. Primero hay que terminar de sumar y dividir, y solo después volver a mirar arreglo por arreglo comparando cada valor contra ese promedio ya calculado.
 
----
+Lo de la racha fue lo que más trabajo me costó pensar. No es lo mismo que contar cuántos sectores superan el promedio (eso es solo un contador que sube), sino que hay que llevar un conteo que se resetea apenas se rompe la secuencia, y guardar aparte cuál fue el conteo más alto que se alcanzó. Al principio se me olvidaba reiniciar el contador cuando el consumo bajaba del promedio, y eso me dañaba el resultado.
 
-## Ejercicio 2 – Control de producción semanal
+
+
+## ==================== Ejercicio 2 – Control de producción semanal============================
 **Archivo:** `Ejercicio2A.java`
 
 ### ¿Qué hace el programa?
@@ -177,20 +182,16 @@ Simula el registro de la producción semanal de 4 máquinas durante 5 días, usa
 - La matriz completa, organizada visualmente por máquinas (filas) y días (columnas).
 
 ### ¿Qué se aprendió con este ejercicio?
-Este segundo ejercicio da un paso más allá del arreglo simple y trabaja con dos dimensiones:
+Este fue el que más me hizo pensar en "por dónde recorro la matriz". Sumar por máquina es recorrer una fila completa, y sumar por día es recorrer una columna completa, usando los mismos datos pero moviéndose en direcciones distintas. Al principio se me hacía raro tener que cambiar cuál índice se queda fijo y cuál se mueve, pero una vez que lo armé una vez, la lógica para lo demás (máximo, mínimo, conteo) fue prácticamente calcada de lo que ya había hecho en el ejercicio 1, solo que ahora con un ciclo dentro de otro.
 
-- **Cómo pensar en filas y columnas por separado.** Sumar "por máquina" es recorrer una fila completa; sumar "por día" es recorrer una columna completa. Entender que ambos recorridos usan los mismos datos, pero en direcciones distintas, es la parte más importante de trabajar con matrices.
-- **Que una matriz no es más que un arreglo de arreglos.** Una vez se entiende que `produccion[fila][columna]` representa una sola celda, el resto es aplicar la misma lógica de máximos, mínimos y conteos que ya se usó en el ejercicio 1, pero con un ciclo anidado.
-- **Formatear una salida en forma de tabla.** Mostrar la matriz "organizada" no es trivial: hay que alinear columnas con `printf` y pensar en cómo se vería la información desde el punto de vista de quien la lee, no solo de quien la calculó.
-- **Reutilización de patrones de validación y comparación.** Los mismos patrones de "validar que no sea negativo" y "guardar el índice del mayor/menor" del ejercicio 1 se repiten aquí, lo que refuerza que estas estructuras son herramientas generales, no soluciones únicas de un problema puntual.
-
+También aprendí que mostrar una matriz "bonita" en consola no es tan trivial como parece. Usar `printf` para que las columnas queden alineadas me tomó más tiempo del que esperaba, pero al final se nota la diferencia entre una salida que solo muestra números sueltos y una que realmente se ve como una tabla.
 ---
 
 ## Aprendizaje general del parcial
 
-Más allá de cada ejercicio por separado, el parcial en conjunto refuerza una idea central de la programación estructurada: **antes de escribir código hay que separar claramente las entradas, el proceso y las salidas**, como bien lo menciona el enunciado. Cuando se identifican esas tres partes desde el principio, resulta mucho más fácil decidir qué ciclos se necesitan, cuántas veces hay que recorrer los datos y qué variables auxiliares (sumas, contadores, banderas de racha, índices de máximo o mínimo) se deben crear antes de empezar a leer datos del usuario.
+Si algo me dejó claro este parcial es que antes de escribir una sola línea de código conviene sentarse a pensar qué entra, qué hay que calcular y qué se tiene que mostrar al final. Cuando uno tiene esas tres cosas claras, es mucho más fácil decidir cuántos ciclos se necesitan y qué variables hay que crear antes de siquiera pedir el primer dato.
 
-También queda claro que el compilador solo garantiza que el código sea sintácticamente correcto, pero no que la lógica sea la correcta; por eso es tan importante probar los programas con distintos escenarios, incluyendo casos de empate, valores negativos y datos en el límite (como consumos exactamente iguales al promedio).
+También me quedó claro es que el compilador solo te avisa si escribiste mal el código, pero no si la lógica está mal. Un programa puede compilar perfecto y aun así darte el sector equivocado o la racha mal contada, así que hay que probar con varios casos, incluyendo empates y valores raros, para estar seguro de que realmente funciona como debería.
 
 ---
 
@@ -215,10 +216,17 @@ Aunque ambos programas cumplen con lo pedido en el enunciado, hay varios puntos 
  Ejercicio2A.java   = Control de producción semanal (matriz 4x5)
  README.md          = Este archivo
 ```
+---
+### lo que cambiaria si el parcial no tuviera restricciones.
 
-Ambos archivos compilan y se ejecutan de forma independiente desde consola con:
+ Sacar la lógica del `main` y meterla en métodos separados (uno para leer, otro para validar, otro para calcular). Ahora mismo todo está junto porque así lo pedía el ejercicio, pero se nota que el código sería más limpio si estuviera dividido.
+- Manejar el caso en que el usuario escriba una letra en vez de un número. Ahora mismo, si eso pasa, el programa se cae porque `Scanner.nextInt()` no sabe qué hacer con eso.
+- Que el tamaño del arreglo y de la matriz no estén fijos (10 sectores, 4x5), sino que se puedan pedir al usuario o leer desde un archivo.
+- Guardar los resultados en un archivo de texto en vez de que se pierdan apenas se cierra la consola.
+- Con más tiempo, hasta le pondría pruebas automatizadas para no tener que revisar a mano que la racha o los empates estén bien calculados cada vez que toque cambiar algo.
 
-```bash
-javac Ejercicio1A.java && java Ejercicio1A
-javac Ejercicio2A.java && java Ejercicio2A
-```
+
+
+
+
+
