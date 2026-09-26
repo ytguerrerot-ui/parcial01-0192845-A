@@ -1,110 +1,64 @@
-# Primer Parcial Práctico – Programación I
+Parcial 01 - Grupo A (0192700-B)
+Descripción general
+Este repositorio contiene la solución de los dos ejercicios del parcial 01, grupo A. El primero trabaja con un arreglo unidimensional para analizar la producción de un centro de distribución, y el segundo trabaja con una matriz bidimensional para analizar las ventas de varias sucursales.
+Ambos programas están hechos en Java y se ejecutan desde consola, pidiéndole al usuario los datos uno por uno.
 
-## Versión A
+Ejercicio 1A - Paquetes procesados
+Entradas
+10 valores enteros, uno por cada hora (de la hora 1 a la hora 10), correspondientes a la cantidad de paquetes procesados.
+Cada valor se valida: si el usuario ingresa un número negativo, el programa lo rechaza y vuelve a pedirlo.
 
-**Lenguaje:** Java  
-**Modalidad:** Individual  
-**Duración total:** 60 minutos  
-**Valor:** 100 puntos  
-**Temas:** arreglos unidimensionales, arreglos bidimensionales, ciclos, condicionales, contadores y acumuladores.
+Salidas
+Total de paquetes procesados en las 10 horas.
+Promedio de paquetes procesados por hora.
+La hora con la menor cantidad de paquetes procesados.
+Cuántas horas quedaron por debajo del promedio.
+La racha más larga de horas consecutivas por debajo del promedio.
+Un listado final con el número de cada hora y la cantidad registrada en ella.
 
----
+Ejercicio 2A - Ventas de sucursales
 
-## Indicaciones generales
+Entradas
+20 valores enteros (4 sucursales x 5 productos), correspondientes a las unidades vendidas de cada producto en cada sucursal.
+Igual que en el ejercicio anterior, se valida que ningún valor sea negativo.
 
-- Desarrolle los dos ejercicios en Java y desde consola.
-- Cada ejercicio debe resolverse en un archivo independiente.
-- Toda la solución debe estar dentro del método `main`.
-- Puede utilizar `Scanner`, arreglos, matrices, ciclos y condicionales.
-- No se permite utilizar `ArrayList`, colecciones, `Stream`, métodos de ordenamiento automático ni métodos creados por el estudiante.
-- Los datos deben ser solicitados al usuario; no deben quedar escritos directamente en el código.
-- Los resultados deben mostrarse de forma clara e identificable.
-- Si se presenta un empate, debe reportarse la primera posición encontrada.
+Salidas
+Total de unidades vendidas por cada sucursal.
+Total vendido de cada producto, sumando las cuatro sucursales.
+La sucursal con la menor cantidad total de ventas.
+El producto con la mayor cantidad total de unidades vendidas.
+Cuántos registros de la matriz superaron las 30 unidades.
+La matriz completa, organizada por sucursal y producto.
 
----
+Qué aprendimos
+Haciendo estos dos ejercicios repasamos varias cosas que son la base de casi cualquier programa 
+que maneje datos:
+Manejo de arreglos y matrices: cómo declarar un arreglo de una dimensión y una matriz de dos dimensiones, y cómo recorrerlos con ciclos for anidados cuando se necesita.
 
-# Ejercicio 1 – Consumo de agua por sectores
+Validación de datos de entrada: usar un ciclo do-while para no dejar avanzar el programa hasta que el usuario ingrese un valor válido, en este caso que no sea negativo.
 
-**Tiempo sugerido:** 30 minutos  
-**Valor:** 50 puntos
+Recorridos múltiples sobre la misma estructura: para poder calcular el promedio primero hay que tener todos los datos, y solo después se puede volver a recorrer el arreglo para comparar cada valor contra ese promedio. Esto deja claro que a veces no se puede calcular todo en una sola pasada.
 
-Una empresa de servicios públicos registró el consumo diario de agua de **10 sectores** de la ciudad. La información se expresa en metros cúbicos enteros y debe almacenarse en un arreglo unidimensional.
+Lógica de rachas (secuencias consecutivas): aprendimos a usar un contador que se reinicia cada vez que se rompe la condición, y a ir guardando el valor máximo que alcanza ese contador. Esta misma lógica sirve para muchos otros problemas parecidos, no solo para este ejercicio.
 
-Construya un programa que:
+Trabajo con matrices bidimensionales: sumar por filas y por columnas al mismo tiempo, dentro del mismo recorrido, sin necesitar arreglos extra.
 
-1. Cree un arreglo de 10 posiciones.
-2. Solicite el consumo de cada sector y valide que no sea negativo. Si el dato es inválido, debe solicitarlo nuevamente.
-3. Calcule y muestre:
-   - El consumo total de los 10 sectores.
-   - El promedio de consumo.
-   - El número del sector con el mayor consumo.
-   - Cuántos sectores tuvieron un consumo superior al promedio.
-   - La racha más larga de sectores consecutivos cuyo consumo fue superior al promedio.
-4. Muestre el listado final con el número de cada sector y su consumo registrado.
+Comparaciones para encontrar mínimos y máximos: la técnica de ir guardando un índice "candidato" (el menor o el mayor hasta el momento) y solo cambiarlo cuando aparece un valor que lo supera.
 
-## Aclaraciones
+Organización y claridad del código: separar bien las secciones (lectura, cálculos, resultados) para que el programa sea fácil de leer y de revisar, tanto para nosotros como para quien lo califica.
 
-- Los sectores se numeran del 1 al 10, aunque las posiciones del arreglo comiencen en 0.
-- Una racha es una secuencia de posiciones consecutivas. Por ejemplo, si los sectores 3, 4 y 5 superan el promedio, existe una racha de longitud 3.
-- Para determinar cuáles consumos superan el promedio será necesario recorrer nuevamente el arreglo después de calcularlo.
+Cómo se puede mejorar
+Estas son ideas para llevar el ejercicio un poco más allá de lo que pide la guía:
+Separar la lógica en métodos: en vez de tener todo el código dentro de main, se podrían crear métodos como leerDatos(), calcularPromedio(), encontrarMenor(), etc. Esto hace el código más ordenado y más fácil de probar por partes.
 
-## Criterios de evaluación
+Manejo de errores más robusto: actualmente si el usuario escribe una letra en vez de un número, el programa se rompe. Se podría usar try-catch para atrapar esa excepción y pedir el dato de nuevo sin que el programa se caiga.
 
-| Criterio | Puntaje |
-|---|---:|
-| Lectura, almacenamiento y validación de los 10 consumos | 10 |
-| Cálculo correcto del total y del promedio | 10 |
-| Identificación del sector con mayor consumo | 10 |
-| Conteo de sectores por encima del promedio | 8 |
-| Cálculo correcto de la racha más larga | 8 |
-| Claridad de la salida y organización del código | 4 |
+Guardar los resultados en un archivo: en vez de solo mostrar los resultados en consola, se podrían escribir en un archivo .txt o .csv para tener un historial de las corridas anteriores.
+Generar datos de prueba automáticamente: para no tener que escribir 10 o 20 números cada vez que se prueba el programa, se podría agregar una opción que genere valores aleatorios y así probar más rápido.
 
----
+Interfaz gráfica simple: como práctica extra, estos mismos ejercicios se podrían pasar a una ventana con Swing o JavaFX, donde los datos se ingresen en campos de texto en vez de la consola.
+Pruebas unitarias: separar la lógica en métodos también permitiría escribir pruebas con JUnit para verificar que el cálculo del promedio, la racha, y los mínimos/máximos siempre funcionen bien, incluso con casos raros (por ejemplo, todos los valores iguales).
 
-# Ejercicio 2 – Control de producción semanal
-
-**Tiempo sugerido:** 30 minutos  
-**Valor:** 50 puntos
-
-Una pequeña fábrica cuenta con **4 máquinas** y registra durante **5 días** la cantidad de piezas producidas por cada una. La información debe almacenarse en una matriz de 4 filas por 5 columnas:
-
-- Cada fila representa una máquina.
-- Cada columna representa un día de trabajo.
-
-Construya un programa que:
-
-1. Cree una matriz de `4 x 5`.
-2. Solicite la producción de cada máquina durante cada día y valide que ningún valor sea negativo.
-3. Calcule y muestre:
-   - El total producido por cada máquina.
-   - El total producido en cada día, sumando las cuatro máquinas.
-   - La máquina con la mayor producción acumulada.
-   - El día con la menor producción total.
-   - Cuántos registros de la matriz fueron inferiores a 20 piezas.
-4. Muestre la matriz completa, organizada por máquinas y días.
-
-## Aclaraciones
-
-- Las máquinas se numeran del 1 al 4 y los días del 1 al 5.
-- Si dos máquinas tienen el mismo total máximo, se reporta la primera.
-- Si dos días tienen el mismo total mínimo, se reporta el primero.
-- No es necesario crear arreglos adicionales para resolver el ejercicio, aunque puede utilizarlos si lo considera conveniente.
-
-## Criterios de evaluación
-
-| Criterio | Puntaje |
-|---|---:|
-| Lectura, almacenamiento y validación de la matriz | 10 |
-| Cálculo del total de cada máquina | 10 |
-| Cálculo del total de cada día | 10 |
-| Identificación de la máquina mayor y el día menor | 10 |
-| Conteo de registros inferiores a 20 | 6 |
-| Presentación de la matriz y organización del código | 4 |
-
----
-
-## Entrega
-
-Entregue los dos archivos `.java`, debidamente nombrados y capaces de compilar y ejecutarse sin errores.
-
-**Antes de escribir código, identifique las entradas, el proceso y las salidas. El compilador detecta errores de sintaxis; la lógica todavía corre por cuenta del programador.**
+Archivos del proyecto
+Ejercicio1A.java - Solución del ejercicio 1 (arreglo unidimensional).
+Ejercicio2A.java - Solución del ejercicio 2 (matriz de 4x5).
